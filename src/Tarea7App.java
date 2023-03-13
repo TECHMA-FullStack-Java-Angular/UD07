@@ -8,7 +8,10 @@ public class Tarea7App {
 //		ej1.notaAlumno();
 		
 		Ejercicio2 ej2 = new Ejercicio2();
-		ej2.flujoCaja();
+//		ej2.flujoCaja();
+		
+		Ejercicio3 ej3 = new Ejercicio3();
+		ej3.baseDatos();
 	}
 
 }
