@@ -11,13 +11,14 @@ import java.util.Set;
 public class Ejercicio1 {
 
 	boolean masAlumnos = true;
-	boolean añadirNotas = true;
+	boolean anadirNotas = true;
 	String input;
 	double media = 0;
+	String dni;
 
-	String[] nombre = new String[3];
-	ArrayList<Double> notas = new ArrayList<Double>();
-	Hashtable<String[], Double> indexAlumnos = new Hashtable<String[], Double>();
+	String[] nombre;
+	ArrayList<Double> notas;
+	Hashtable<String, String[]> indexAlumnos = new Hashtable<String, String[]>();
 
 	// Inicializamos el scanner
 	Scanner sc = new Scanner(System.in);
@@ -30,26 +31,31 @@ public class Ejercicio1 {
 
 		while (masAlumnos) {
 
+			nombre = new String[4];
 			System.out.println("Introduzca el nombre del alumno: ");
 			nombre[0] = sc.nextLine();
 			System.out.println("Introduzca el primer apellido del alumno: ");
 			nombre[1] = sc.nextLine();
 			System.out.println("Introduzca el segon apellido del alumno: ");
 			nombre[2] = sc.nextLine();
+			System.out.println("¿Introduzca el DNI del alumno: ");
+			dni = sc.nextLine();
 
-			while (añadirNotas) {
+			while (anadirNotas) {
+				
 
+				notas = new ArrayList<Double>();
 				System.out.println("Introduzca la nota del alumno: ");
 				notas.add(Double.parseDouble(sc.nextLine()));
 				System.out.println("¿Deseas añadir otra nota? (si o no)");
 				input = sc.nextLine().toLowerCase();
 				switch (input) {
 				case "si":
-					añadirNotas = true;
+					anadirNotas = true;
 					break;
 
 				case "no":
-					añadirNotas = false;
+					anadirNotas = false;
 					break;
 				default:
 					System.out.println("No has introducido un valor correcto.");
@@ -57,30 +63,30 @@ public class Ejercicio1 {
 
 			}
 
-			calcularMedia(notas);
-			insertarDatos(nombre, media);
-			
-			Set<String[]> indexNombres = indexAlumnos.keySet();
+			nombre[3] = Double.toString(calcularMedia(notas));
 
-			for (String[] indexNombre : indexNombres) {
-
-				System.out.println("Has añadido al alumno " + indexNombre[0] + " " + indexNombre[1] + " " + indexNombre[2]
-						+ ", la nota média de " + indexAlumnos.get(nombre) + ".");
-			}
+			insertarDatos(dni, nombre);
 
 			System.out.println("¿Deseas añadir otro alumno? (si o no)");
 			input = sc.nextLine().toLowerCase();
 			switch (input) {
 			case "si":
-				añadirNotas = true;
+				masAlumnos = true;
 				break;
 
 			case "no":
-				añadirNotas = false;
+				masAlumnos = false;
 				break;
 			default:
 				System.out.println("No has introducido un valor correcto.");
 			}
+			
+			mostrarDatos(indexAlumnos);
+
+			
+
+			// reinicia el bucle interno
+			anadirNotas = true;
 
 		}
 
@@ -95,10 +101,21 @@ public class Ejercicio1 {
 		return media;
 	}
 
-	public void insertarDatos(String[] nombreAlumno, double nota) {
-		indexAlumnos.put(nombreAlumno, nota);
-		
+	public void insertarDatos(String dni, String[] datos) {
 
+		indexAlumnos.put(dni, datos);
+
+	}
+	
+	public void mostrarDatos(Hashtable<String, String[]> indexAlumnos) {
+		for (String clave : indexAlumnos.keySet()) {
+			String[] valor = indexAlumnos.get(clave);
+			System.out.print("Datos alumno"+clave + ": ");
+			for (String s : valor) {
+				System.out.print(s + " ");
+			}
+			System.out.println();
+		}
 	}
 
 }
