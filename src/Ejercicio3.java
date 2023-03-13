@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Hashtable;
 import javax.swing.JOptionPane;
 
@@ -12,77 +13,132 @@ import javax.swing.JOptionPane;
  * programa.*/
 
 public class Ejercicio3 {
-	
-	//Array multidimensional para añadir productos y la cantidad de cada;
+
+	// Array multidimensional para añadir productos y la cantidad de cada;
 	ArrayList<String[][]> articulos = new ArrayList<String[][]>();
-	
+
 	Hashtable<String, Double> catalogoPrecio = new Hashtable<String, Double>();
-	
-	String [][] articulosBase = new String[2][10];
-	
-	String[] productosIniciales= {"Avena", "Leche", "Pan", "Arroz", "Chocolate", 
-			"Manzana", "Harina","Pollo", "Shampoo", "Jamón"};
-	
-	
-	
-	
-	
+
+	String[][] articulosBase = new String[2][10];
+
+	String[] productosIniciales = { "Avena", "Leche", "Pan", "Arroz", "Chocolate", "Manzana", "Harina", "Pollo",
+			"Shampoo", "Jamón" };
+
 	public void baseDatos() {
-		
-		//Añadimos los los articulos iniciales a la base de datos
-		
-		articulosBase[0][0]= "Avena";		articulosBase[1][0]="100";
-		articulosBase[0][1]= "Leche";		articulosBase[1][1]="100";
-		articulosBase[0][2]= "Pan";			articulosBase[1][2]="100";
-		articulosBase[0][3]= "Arroz";		articulosBase[1][3]="100";
-		articulosBase[0][4]= "Chocolate";	articulosBase[1][4]="100";
-		articulosBase[0][5]= "Manzana"; 	articulosBase[1][5]="100";
-		articulosBase[0][6]= "Harina"; 		articulosBase[1][6]="100";
-		articulosBase[0][7]= "Pollo"; 		articulosBase[1][7]="100";
-		articulosBase[0][3]= "Shampoo"; 	articulosBase[1][8]="100";
-		articulosBase[0][3]= "Jamón"; 		articulosBase[1][9]="100";
-		
-		
+
+		// Añadimos los los articulos iniciales a la base de datos
+
+		articulosBase[0][0] = "avena";
+		articulosBase[1][0] = "100";
+		articulosBase[0][1] = "leche";
+		articulosBase[1][1] = "100";
+		articulosBase[0][2] = "pan";
+		articulosBase[1][2] = "100";
+		articulosBase[0][3] = "arroz";
+		articulosBase[1][3] = "100";
+		articulosBase[0][4] = "chocolate";
+		articulosBase[1][4] = "100";
+		articulosBase[0][5] = "manzana";
+		articulosBase[1][5] = "100";
+		articulosBase[0][6] = "harina";
+		articulosBase[1][6] = "100";
+		articulosBase[0][7] = "pollo";
+		articulosBase[1][7] = "100";
+		articulosBase[0][8] = "shampoo";
+		articulosBase[1][8] = "100";
+		articulosBase[0][9] = "jamon";
+		articulosBase[1][9] = "100";
+
 		articulos.add(articulosBase);
-		
-		
-		//añadimos los articulos iniciales al catalogo de precios
-		
-		catalogoPrecio.put("Avena", 0.9);
-		catalogoPrecio.put("Leche", 1.25);
-		catalogoPrecio.put("Pan", 1.5);
-		catalogoPrecio.put("Arroz", 0.95);
-		catalogoPrecio.put("Chocolate", 2.5);
-		catalogoPrecio.put("Manzana", 0.89);
-		catalogoPrecio.put("Harina", 1.09);
-		catalogoPrecio.put("Pollo", 6.90);
-		catalogoPrecio.put("Shampo", 4.99);
-		catalogoPrecio.put("Jamón", 8.99);
-		
-		
+
+		// añadimos los articulos iniciales al catalogo de precios
+
+		catalogoPrecio.put("avena", 0.9);
+		catalogoPrecio.put("leche", 1.25);
+		catalogoPrecio.put("pan", 1.5);
+		catalogoPrecio.put("arroz", 0.95);
+		catalogoPrecio.put("chocolate", 2.5);
+		catalogoPrecio.put("manzana", 0.89);
+		catalogoPrecio.put("harina", 1.09);
+		catalogoPrecio.put("pollo", 6.90);
+		catalogoPrecio.put("shampoo", 4.99);
+		catalogoPrecio.put("jamon", 8.99);
+
 		JOptionPane.showMessageDialog(null, "Bienvenido a la APP control de Stock!");
-		
-		int nuevoArticulo =JOptionPane.showConfirmDialog(null, "¿Deseas introducir nuevo articulo?");
-		
-		if(nuevoArticulo==0) {
-			String articulo= JOptionPane.showInputDialog("Introduzca el nombre del artículo");
+
+		int nuevoArticulo = JOptionPane.showConfirmDialog(null, "¿Deseas introducir nuevo articulo?");
+
+		if (nuevoArticulo == 0) {
+			String articulo = JOptionPane.showInputDialog("Introduzca el nombre del artículo").toLowerCase();
 			String cantidad = JOptionPane.showInputDialog("Introduzca la cantidad a añadir en stock");
 			String precio = JOptionPane.showInputDialog("Introduzca el precio sin IVA de la unidad.");
 			double precioSt = Double.parseDouble(precio);
-		
+
 			catalogoPrecio.put(articulo, precioSt);
-			
-			String[][] nuevoPorducto = {{articulo, cantidad}};
+
+			String[][] nuevoPorducto = { { articulo }, { cantidad } };
 			articulos.add(nuevoPorducto);
-			
-			
+
+		}
+		int stock = JOptionPane.showConfirmDialog(null, "¿Deseas alterar la cantidad de productos en stock?");
+
+		if (stock == 0) {
+			String articuloBuscado = JOptionPane
+					.showInputDialog("Introduzca el nombre del artículo que deseas aumentar el stock").toLowerCase();
+			String cantidad = JOptionPane.showInputDialog("Introduzca la cantidad a actualizar en stock");
+
+			// Buscar articulo en articulos y alterar su cantidad
+
+			for (String[][] array : articulos) {
+				for (int i = 0; i < array.length; i++) {
+					for (int j = 0; j < array[i].length; j++) {
+						if (array[i][j].equals(articuloBuscado)) {
+							array[1][j] = String.valueOf(cantidad);
+						}
+					}
+				}
+			}
+
+		}
+
+		// Consultar información concreta del diccionario
+		int busqueda = JOptionPane.showConfirmDialog(null, "¿Deseas buscar el precio de algun producto?");
+
+		if (busqueda == 0) {
+
+			String articulo = JOptionPane.showInputDialog("Introduzca el nombre del artículo").toLowerCase();
+			Double precio = catalogoPrecio.get(articulo);
+
+			if (precio != null) {
+				JOptionPane.showMessageDialog(null, "El precio de " + articulo + " es " + precio);
+
+			} else {
+				JOptionPane.showMessageDialog(null, "No se encontró el precio del articulo en el catálogo.");
+
+			}
+		}
+
+		// Listar informacion Stock
+		int infoStock = JOptionPane.showConfirmDialog(null, "¿Deseas buscar visualizar el stock de productos?");
+
+		if (infoStock == 0) {
+
+			for (String[][] array : articulos) {
+				for (int i = 0; i < array.length; i++) {
+					for (int j = 0; j < array[i].length; j++) {
+						System.out.print(array[i][j] + " \t\t");
+					}
+					System.out.println();
+				}
+				System.out.println();
+			}
 		}
 		
-		
-		
-		
-		
+		//Listar información catálogo productos
+		int infoCatalogo = JOptionPane.showConfirmDialog(null, "¿Deseas buscar visualizar el stock de productos?");
+
+		if (infoCatalogo == 0) {
+			catalogoPrecio.forEach((producto, precio) -> System.out.println(producto + ": \t\t" + precio));
+		}
 	}
-	
-	
 }
