@@ -29,6 +29,8 @@ public class Ejercicio1 {
 		// Imprimimos mensaje de bienvenida y explicación de la app
 		System.out.println("Bienvenido a la app Calcule y almacene la nota media de alumnos!");
 
+		// Abrimos un while para realizar la inserción de cuantos alumnos sean
+		// necesarios alumnos
 		while (masAlumnos) {
 
 			nombre = new String[4];
@@ -41,8 +43,8 @@ public class Ejercicio1 {
 			System.out.println("¿Introduzca el DNI del alumno: ");
 			dni = sc.nextLine();
 
+			// Con otro bucle while añadimos las notas del alumno
 			while (anadirNotas) {
-				
 
 				notas = new ArrayList<Double>();
 				System.out.println("Introduzca la nota del alumno: ");
@@ -63,8 +65,11 @@ public class Ejercicio1 {
 
 			}
 
+			// Guardamos el dato de la nota media llamando a un metodo especifico y
+			// pasandola a String
 			nombre[3] = Double.toString(calcularMedia(notas));
 
+			// Insertamos los datos en el sistema
 			insertarDatos(dni, nombre);
 
 			System.out.println("¿Deseas añadir otro alumno? (si o no)");
@@ -80,10 +85,9 @@ public class Ejercicio1 {
 			default:
 				System.out.println("No has introducido un valor correcto.");
 			}
-			
-			mostrarDatos(indexAlumnos);
 
-			
+			// Imprimimos los valores grabados en el sistema
+			mostrarDatos(indexAlumnos);
 
 			// reinicia el bucle interno
 			anadirNotas = true;
@@ -95,22 +99,25 @@ public class Ejercicio1 {
 
 	}
 
+	// Metodo creado para calcular la nota media
 	public double calcularMedia(ArrayList<Double> notas) {
 		media = notas.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
 
 		return media;
 	}
 
+	// Metodo creado para la inserción de datos
 	public void insertarDatos(String dni, String[] datos) {
 
 		indexAlumnos.put(dni, datos);
 
 	}
-	
+
+	// Metodo para imprimir valores guardados
 	public void mostrarDatos(Hashtable<String, String[]> indexAlumnos) {
 		for (String clave : indexAlumnos.keySet()) {
 			String[] valor = indexAlumnos.get(clave);
-			System.out.print("Datos alumno"+clave + ": ");
+			System.out.print("Datos alumno DNI " + clave + ": ");
 			for (String s : valor) {
 				System.out.print(s + " ");
 			}
