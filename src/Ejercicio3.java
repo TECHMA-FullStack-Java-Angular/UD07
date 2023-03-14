@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
 import javax.swing.JOptionPane;
 
@@ -126,7 +125,7 @@ public class Ejercicio3 {
 			for (String[][] array : articulos) {
 				for (int i = 0; i < array.length; i++) {
 					for (int j = 0; j < array[i].length; j++) {
-						System.out.print(array[i][j] + " \t\t");
+						System.out.print(array[i][j] + " \t");
 					}
 					System.out.println();
 				}
@@ -138,7 +137,7 @@ public class Ejercicio3 {
 		int infoCatalogo = JOptionPane.showConfirmDialog(null, "¿Deseas buscar visualizar el stock de productos?");
 
 		if (infoCatalogo == 0) {
-			catalogoPrecio.forEach((producto, precio) -> System.out.println(producto + ": \t\t" + precio));
+			catalogoPrecio.forEach((producto, precio) -> System.out.println(producto + ": \t" + precio));
 		}
 	}
 }
