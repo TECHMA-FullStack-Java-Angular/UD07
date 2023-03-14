@@ -11,7 +11,10 @@ public class Tarea7App {
 //		ej2.flujoCaja();
 		
 		Ejercicio3 ej3 = new Ejercicio3();
-		ej3.baseDatos();
+//		ej3.baseDatos();
+		
+		Ejercicio4 ej4 = new Ejercicio4();
+		ej4.gestiontotal();
 	}
 
 }
