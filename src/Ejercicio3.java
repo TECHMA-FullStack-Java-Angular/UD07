@@ -90,20 +90,21 @@ public class Ejercicio3 {
 		}
 		
 		//Preguntamos si desea alterar la cantidad en stock de algun producto
-		int stock = JOptionPane.showConfirmDialog(null, "¿Deseas alterar la cantidad de productos en stock?");
+		int stock = JOptionPane.showConfirmDialog(null, "¿Deseas añadir de productos al stock?");
 
 		//En caso positivo solicitamos que ingrese el nombre del producto a alterar y la nueva cantidad en stock
 		if (stock == 0) {
 			String articuloBuscado = JOptionPane
 					.showInputDialog("Introduzca el nombre del artículo que deseas aumentar el stock").toLowerCase();
-			String cantidad = JOptionPane.showInputDialog("Introduzca la cantidad a actualizar en stock");
+			String cantidad = JOptionPane.showInputDialog("Introduzca la cantidad a añadir a stock");
 
 			// Buscar articulo en lista de productos (.equals()) y alterar su cantidad(.valueOf())
 			for (String[][] array : articulos) {
 				for (int i = 0; i < array.length; i++) {
 					for (int j = 0; j < array[i].length; j++) {
 						if (array[i][j].equals(articuloBuscado)) {
-							array[1][j] = String.valueOf(cantidad);
+							int cantidadInicial = Integer.parseInt(array[1][j]) ;
+							array[1][j] = String.valueOf(cantidadInicial+Integer.parseInt(cantidad));
 						}
 					}
 				}
@@ -122,7 +123,7 @@ public class Ejercicio3 {
 
 			//Si lo encontramos (precio existe) imprimimos el valor
 			if (precio != null) {
-				JOptionPane.showMessageDialog(null, "El precio de " + articulo + " es " + precio);
+				JOptionPane.showMessageDialog(null, "El precio de " + articulo + " sin IVA es " + precio+" €");
 
 			} else {
 				JOptionPane.showMessageDialog(null, "No se encontró el precio del articulo en el catálogo.");
@@ -131,7 +132,7 @@ public class Ejercicio3 {
 		}
 
 		// Preguntamos si desea visualizar la lista de informacion Stock
-		int infoStock = JOptionPane.showConfirmDialog(null, "¿Deseas buscar visualizar el stock de productos?");
+		int infoStock = JOptionPane.showConfirmDialog(null, "¿Deseas visualizar el stock de productos?");
 
 		//En caso positivo, imprimimos la lista de productos
 		if (infoStock == 0) {
@@ -139,19 +140,22 @@ public class Ejercicio3 {
 			for (String[][] array : articulos) {
 				for (int i = 0; i < array.length; i++) {
 					for (int j = 0; j < array[i].length; j++) {
-						System.out.print(array[i][j] + " \t");
+						System.out.printf("%-15s",array[i][j]);
 					}
 					System.out.println();
 				}
-				System.out.println();
+				System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 			}
 		}
 		
 		//Preguntamos si desea visualizar la lista de información precios (diccionario)
-		int infoCatalogo = JOptionPane.showConfirmDialog(null, "¿Deseas buscar visualizar el stock de productos?");
+		int infoCatalogo = JOptionPane.showConfirmDialog(null, "¿Deseas visualizar el precio de los productos?");
 
 		if (infoCatalogo == 0) {
-			catalogoPrecio.forEach((producto, precio) -> System.out.println(producto + ": \t" + precio));
+			catalogoPrecio.forEach((producto, precio) -> System.out.print(producto + ": \t" + precio+" €\t"));
+			System.out.println();
+			System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
 		}
 	}
 }
