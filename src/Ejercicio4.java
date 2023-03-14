@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -46,6 +47,8 @@ public class Ejercicio4 {
 	int cantidadProducto;
 	double dinero;
 	double cambio;
+	
+	
 
 	public void gestiontotal() {
 
@@ -127,9 +130,9 @@ public class Ejercicio4 {
 			// la nueva cantidad en stock
 			if (stock == 0) {
 				String articuloBuscado = JOptionPane
-						.showInputDialog("Introduzca el nombre del artículo que deseas aumentar el stock")
+						.showInputDialog("Introduzca el nombre del artículo")
 						.toLowerCase();
-				String cantidad = JOptionPane.showInputDialog("Introduzca la cantidad a añadir a stock");
+				String cantidad = JOptionPane.showInputDialog("Introduzca la cantidad a añadir");
 
 				// Buscar articulo en lista de productos (.equals()) y alterar su
 				// cantidad(.valueOf())
@@ -146,27 +149,7 @@ public class Ejercicio4 {
 
 			}
 
-			// Preguntamos si desea consultar información concreta del diccionario
-			// (catalogoPrecio)
-			int busqueda = JOptionPane.showConfirmDialog(null, "¿Deseas buscar el precio de algun producto?");
-
-			// En caso positivo, solicitamos que introduzca el nombre del articulo a buscar
-			// (index)
-			if (busqueda == 0) {
-				String articulo = JOptionPane.showInputDialog("Introduzca el nombre del artículo").toLowerCase();
-				Double precio = catalogoPrecio.get(articulo);
-
-				// Si lo encontramos (precio existe) imprimimos el valor
-				if (precio != null) {
-					JOptionPane.showMessageDialog(null, "El precio de " + articulo + " sin IVA es " + precio + " €");
-
-				} else {
-					JOptionPane.showMessageDialog(null, "No se encontró el precio del articulo en el catálogo.");
-
-				}
-
-			}
-
+			
 			// Preguntamos si desea visualizar la lista de informacion Stock
 			int infoStock = JOptionPane.showConfirmDialog(null, "¿Deseas visualizar el stock de productos?");
 
@@ -203,11 +186,43 @@ public class Ejercicio4 {
 			if (CajaApp == 0) {
 
 				JOptionPane.showMessageDialog(null, "Bienvenido a la Gestión de caja");
+				
+				// Preguntamos si desea consultar información concreta del diccionario
+				// (catalogoPrecio)
+				int busqueda = 	JOptionPane.showConfirmDialog(null, "¿Deseas buscar el precio de algun producto?");
 
+
+				// En caso positivo, solicitamos que introduzca el nombre del articulo a buscar
+				// (index)
+				while (busqueda == 0) {
+					
+					String articulo = JOptionPane.showInputDialog("Introduzca el nombre del artículo").toLowerCase();
+					Double precio = catalogoPrecio.get(articulo);
+
+					// Si lo encontramos (precio existe) imprimimos el valor
+					if (precio != null) {
+						JOptionPane.showMessageDialog(null, "El precio de " + articulo + " sin IVA es " + precio + " €");
+
+					} else {
+						JOptionPane.showMessageDialog(null, "No se encontró el precio del articulo en el catálogo.");
+
+					}
+					int seguirBusqueda = 	JOptionPane.showConfirmDialog(null, "¿Deseas buscar el precio de otro producto?");
+						if(seguirBusqueda == 0) {
+							continue;
+						}else {
+							break;
+						}
+				}
+				
+				int abrirCaja =JOptionPane.showConfirmDialog(null, "¿Deseas intoducir uma compra?");
+				
+				if(abrirCaja ==0) {
+				
 				// Abrimos el bucle de añadir productos
 				while (masProductos) {
 
-					String producto = JOptionPane.showInputDialog("Introduzca el producto comprado").toLowerCase();
+					String producto = JOptionPane.showInputDialog("Introduzca el producto").toLowerCase();
 					Double precio = catalogoPrecio.get(producto);
 
 					// Si lo encontramos (precio existe) imprimimos el valor
@@ -276,6 +291,7 @@ public class Ejercicio4 {
 					totalPagarIva.add(totalProductoIva);
 
 					// Creamos variables para guardar productos a añadir a lista de compra
+					
 					String articuloCant = producto + " X " + cantidad + " = " + totalProductoIva + " €";
 					String[] productoComprado = { articuloCant };
 
@@ -291,11 +307,7 @@ public class Ejercicio4 {
 
 					case 1:
 						masProductos = false;
-						// Imprimir totaPagarIva
-
-//							JOptionPane.showMessageDialog(null, "Se han comprado "+cantidadProducto(cantidad)+
-//									" productos.\n"+"El precio total de la compra sin IVA es "+valorAPagar(totalPagar)+
-//									"\nEl precio total de la compra con IVA es "+valorAPagar(totalPagarIva));
+						
 
 						dinero = Double.parseDouble(JOptionPane.showInputDialog("Total con IVA: "
 								+ valorAPagar(totalPagarIva) + " €." +"\nIntroduzca el dinero recibido"));
@@ -314,10 +326,14 @@ public class Ejercicio4 {
 
 					// Cerramos el bucle de añadir productos
 				}
+				
+
+				}else {
+					JOptionPane.showMessageDialog(null, "Gracias por confiar en nosotros.");
+				}
+				
 				// Cerramos app Gestion compras
-			} else {
-				JOptionPane.showMessageDialog(null, "Gracias por confiar en nosotros.");
-			}
+			} 
 
 		}
 
